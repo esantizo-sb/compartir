@@ -1,0 +1,100 @@
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compartir Pantalla - Sala Virtual</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="role-selector" id="roleSelector">
+      <h1>Sala Virtual de Clase</h1>
+      <div class="buttons">
+        <button onclick="initializeTeacher()">Soy Profesor</button>
+        <button onclick="initializeStudent()">Soy Estudiante</button>
+      </div>
+    </div>
+
+    <div class="teacher-view hidden" id="teacherView">
+      <h2>Vista del Profesor</h2>
+      <div id="statusMessage" class="status-message"></div>
+      <div class="controls">
+        <button id="startSharing">Comenzar a Compartir Pantalla</button>
+        <button id="stopSharing" class="hidden">Detener Compartir</button>
+        <div class="video-controls">
+          <button id="teacherFullscreen" title="Pantalla completa">
+            <svg viewBox="0 0 24 24" width="24" height="24">
+              <path fill="currentColor" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+            </svg>
+          </button>
+          <div class="resolution-controls">
+            <button class="resolution-btn" data-scale="0.5">50%</button>
+            <button class="resolution-btn active" data-scale="1">100%</button>
+            <button class="resolution-btn" data-scale="1.5">150%</button>
+          </div>
+        </div>
+      </div>
+      <div class="room-info">
+        <p>ID de la Sala: <span id="roomId"></span></p>
+        <p>Estudiantes Conectados: <span id="studentCount">0</span></p>
+        <div class="students-list-container">
+          <h3>Estudiantes Conectados:</h3>
+          <ul id="studentList" class="students-list"></ul>
+        </div>
+      </div>
+      <div class="video-container">
+        <video id="localVideo" autoplay muted playsinline></video>
+      </div>
+      <div class="chat-container">
+        <div class="chat-messages" id="chatMessages"></div>
+        <div class="chat-input-container">
+          <select id="privateMessageSelect">
+            <option value="">Enviar a todos</option>
+          </select>
+          <textarea class="chat-input" id="chatInput" placeholder="Escribe un mensaje..." rows="2"></textarea>
+          <button id="sendButton">Enviar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="student-view hidden" id="studentView">
+      <h2>Vista del Estudiante</h2>
+      <div id="statusMessage" class="status-message"></div>
+      <div class="join-form" id="joinForm">
+        <input type="text" id="roomInput" placeholder="Ingresa el ID de la sala">
+        <input type="text" id="studentNameInput" placeholder="Ingresa tu nombre">
+        <button onclick="joinRoom()">Unirse a la Sala</button>
+      </div>
+      <div class="video-container">
+        <div class="video-controls">
+          <button id="studentFullscreen" title="Pantalla completa">
+            <svg viewBox="0 0 24 24" width="24" height="24">
+              <path fill="currentColor" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+            </svg>
+          </button>
+          <div class="resolution-controls">
+            <button class="resolution-btn" data-scale="0.5">50%</button>
+            <button class="resolution-btn active" data-scale="1">100%</button>
+            <button class="resolution-btn" data-scale="1.5">150%</button>
+          </div>
+        </div>
+        <video id="remoteVideo" autoplay playsinline></video>
+      </div>
+      <div class="chat-container">
+        <div class="chat-messages" id="chatMessages"></div>
+        <div class="chat-input-container">
+          <textarea class="chat-input" id="chatInput" placeholder="Escribe un mensaje..." rows="2"></textarea>
+          <button id="sendButton">Enviar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Diseño Elvis Santizo</p>
+  </footer>
+
+  <script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
